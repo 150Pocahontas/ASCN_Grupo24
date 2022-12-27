@@ -3,9 +3,9 @@ all:
  vars:
 
   # GKE cluster variables
-  gcp_project: ascn-grupo24                         # ID of GCP Project
+  gcp_project: cogent-tine-365612                         # ID of GCP Project
   gcp_auth_kind: serviceaccount                           # Do not change
-  gcp_cred_file: ../ascn-grupo24-667a8a17eccd.json  # Path to service account keys
+  gcp_cred_file: ../cogent-tine-365612-f8d0a4fa4324.json  # Path to service account keys
 
   gcp_zone: us-central1-a
   gcp_image_type: ubuntu_containerd
@@ -15,8 +15,8 @@ all:
 
 
   # APP variables
-  ghost_ip: 10.128.0.12     # Needs to be updated
-  ghost_port: 30007         # Needs to be updated
+  ghost_ip: <ghost_ip>     # Needs to be updated
+  ghost_port: <ghost_port>         # Needs to be updated (30007)
 
 
   # Additional variables
