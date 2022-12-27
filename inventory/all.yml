@@ -3,9 +3,9 @@ all:
  vars:
 
   # GKE cluster variables
-  gcp_project: cogent-tine-365612                         # ID of GCP Project
+  gcp_project: ascn-grupo24                        # ID of GCP Project
   gcp_auth_kind: serviceaccount                           # Do not change
-  gcp_cred_file: ../cogent-tine-365612-f8d0a4fa4324.json  # Path to service account keys
+  gcp_cred_file: file.json  # Path to service account keys
 
   gcp_zone: us-central1-a
   gcp_image_type: ubuntu_containerd
