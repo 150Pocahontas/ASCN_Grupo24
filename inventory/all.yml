@@ -18,6 +18,4 @@ all:
   ghost_ip: <ghost_ip>     # Needs to be updated
   ghost_port: <ghost_port>         # Needs to be updated (30007)
 
-
-  # Additional variables
-  # ...
+  master: 10.128.0.29

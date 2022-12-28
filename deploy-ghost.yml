@@ -1,3 +1,8 @@
 ---
 # Playbook to deploy Ghost and its components
-# TO DO
+
+- name: Install and Config
+  hosts: vms
+  become: yes
+  roles:
+    - common
