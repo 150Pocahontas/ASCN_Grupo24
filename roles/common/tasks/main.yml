@@ -1,6 +1,14 @@
----
+- name: GPG Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
-- name: Install Prerequisites
+- name: Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: Install dependencies
   apt:
     name: "{{item}}"
     state: present
@@ -9,24 +17,11 @@
     - apt-transport-https
     - ca-certificates
     - curl
+    - gnupg-agent
     - software-properties-common
-    
-- name: Add Docker GPG apt Key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
-
-- name: Add Docker Repository
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu bionic stable
-        state: present
-
-- name: Install Docker
-  apt:
-    name: docker.io
-    state: latest
-    force_apt_get: yes
-    update_cache: yes
+    - containerd
+    - ufw
+    - net-tools
 
 - name: Install Docker
   apt:
@@ -49,7 +44,7 @@
 
 - name: Restart Docker
   shell: systemctl restart docker
-
+  
 - name: Add an apt signing key for Kubernetes
   apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -89,3 +84,8 @@
     name: kubelet
     state: started
     enabled: yes
+
+- name: Allow everything and enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: allow

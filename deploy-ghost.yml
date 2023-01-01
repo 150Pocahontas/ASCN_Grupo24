@@ -4,5 +4,6 @@
 - name: Install and Config
   hosts: master
   become: yes
+  gather_facts: false
   roles:
     - common
