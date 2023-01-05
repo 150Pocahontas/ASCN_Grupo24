@@ -7,3 +7,9 @@
   gather_facts: false
   roles:
     - common
+
+- name: Config Master
+  hosts: master
+  become: yes
+  roles:
+    - master

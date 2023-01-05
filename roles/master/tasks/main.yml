@@ -1,0 +1,31 @@
+---
+- name: Reset Cluster
+  command: kubeadm reset --force
+
+- name: Initialize Kubernetes Cluster
+  command: kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address={{ host_ip }}
+
+- name: Mkdir .kube
+  ansible.builtin.file:
+    path: .kube
+    state: directory
+
+- name: Copy config
+  copy:
+    src: /etc/kubernetes/admin.conf 
+    dest: .kube/config
+    remote_src: yes
+
+- name: Change kubeconfig file permission
+  file:
+    path: .kube/config 
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0644
+
+- name: Register interface as a variable
+  shell: ip -o a show | grep "{{ host_ip }}" | cut -d ' ' -f 2
+  register: command_output
+
+- set_fact:
+      interface={{command_output.stdout}}
