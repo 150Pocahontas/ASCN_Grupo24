@@ -1,5 +1,5 @@
 ---
 
-ip_node1: 0.0.0.0
-ip_node2: 0.0.0.0
-master: 0.0.0.0
+node_ip_1: 0.0.0.0
+node_ip_2: 0.0.0.0
+node_ip_master: 10.128.15.199

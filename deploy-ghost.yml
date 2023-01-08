@@ -3,7 +3,6 @@
 
 - name: Update hosts IP
   hosts: localhost
-  become: yes
   roles:
     - kubernetes-cluster-ips
 
