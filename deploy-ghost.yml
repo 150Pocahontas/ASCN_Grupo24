@@ -1,6 +1,12 @@
 ---
 # Playbook to deploy Ghost and its components
 
+- name: Update hosts IP
+  hosts: localhost
+  become: yes
+  roles:
+    - kubernetes-cluster-ips
+
 - name: Install and Config
   hosts: all
   become: yes

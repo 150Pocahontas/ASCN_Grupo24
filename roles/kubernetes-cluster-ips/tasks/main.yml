@@ -1,0 +1,17 @@
+---
+
+- name: Armazenar o output de três linhas em três variáveis
+  shell: export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+  shell: "echo -e 'kubectl get nodes -o wide | awk '{print $6}' | tail -n +2'"
+  register: output
+
+- set_fact:
+    ip_node1: "{{ output.stdout_lines[0] }}"
+    ip_node2: "{{ output.stdout_lines[1] }}"
+    master: "{{ output.stdout_lines[2] }}"
+
+- name: Reescrever arquivo com variáveis
+  template:
+    src: hosts.j2
+    dest: inventory/hosts.inv
+    force: yes
