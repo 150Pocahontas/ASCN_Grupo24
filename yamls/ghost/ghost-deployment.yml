@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ghost
+spec:
+  type: LoadBalancer
+  selector:
+    app: ghost
+  ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: 80 #exported to cluster
+      targetPort: 2368 #used to send requests to the pod
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      nodePort: 30008 #exported to the "outside"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+  labels:
+    app: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+      - name: ghost
+        image: ghost:4
+        env:
+        - name: DB_TYPE
+          value: mysql
+        - name: DB_HOST
+          value: mysql
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_USER
+          value: ghostuser
+        - name: DB_PASS
+          value: "123456"
+        - name: DB_NAME
+          value: ghost
+        ports:
+        - containerPort: 2368
+          name: ghost

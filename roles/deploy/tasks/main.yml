@@ -1,0 +1,13 @@
+- name: Create MySQL PV and PVC
+  command: kubectl apply -f yamls/mysql/mysql-pv.yml
+
+- name: Create MySQL deployment
+  command: kubectl apply -f yamls/mysql/mysql-deployment.yml
+
+- name: Create MySQL service
+  command: kubectl apply -f yamls/mysql/mysql-service.yml
+
+- name: Create Ghost deployment and service
+  command: kubectl apply -f yamls/ghost/ghost-deployment.yml
+
+
