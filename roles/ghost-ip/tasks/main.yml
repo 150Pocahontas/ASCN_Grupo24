@@ -1,0 +1,22 @@
+---
+
+- name: Get Ghost IP 
+  shell: 
+  shell: kubectl get services ghost | awk '{print $4}' | tail -n +2
+  register: ipGhost
+
+- name: Get Ghost Port
+  shell: "kubectl get services ghost | awk '{print $5}' | tail -n +2 | awk -F: '{print $1}'"
+  register: portGhost
+
+- name: Add ghost IP
+  lineinfile:
+    path: inventory/gcp.yml
+    regexp: '^  ghost_ip:'
+    line: '  ghost_ip: {{ ipGhost.stdout }}'
+
+- name: Add ghost IP
+  lineinfile:
+    path: inventory/gcp.yml
+    regexp: '^  ghost_port: .+'
+    line: '  ghost_port: {{ portGhost.stdout }}'
